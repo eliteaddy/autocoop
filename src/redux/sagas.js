@@ -5,16 +5,22 @@ import chatSagas from './chat/saga';
 import surveyListSagas from './surveyList/saga';
 import surveyDetailSagas from './surveyDetail/saga';
 import domainDetailSagas from './domain/saga';
-import onBoarding from './onboarding/saga';
+import onBoardingSagas from './onboarding/saga';
+import staffsSagas from './staffs/saga';
+import rolesSagas from './roles/saga';
+import branchSagas from './branch/saga';
 
 export default function* rootSaga(getState){
 	yield all([
 		loginSaga(),
 		todoSagas(),
 		chatSagas(),
-		onBoarding(),
+		onBoardingSagas(),
 		surveyListSagas(),
 		surveyDetailSagas(),
 		domainDetailSagas(),
+		staffsSagas(),
+		branchSagas(),
+		rolesSagas(),
 	]);
 }

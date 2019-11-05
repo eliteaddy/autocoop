@@ -109,7 +109,12 @@ class NavigationUi extends Component {
                   </NavItem>
                 </Nav>
                 <Nav className="justify-content-end nav-pills">
-                  <BTNSIGNUP />
+                  {/* <BTNSIGNUP /> */}
+                  <NavItem>
+                    <NavLink color="info" href="/register">
+                      Sign Up
+                    </NavLink>
+                  </NavItem>
                   <NavItem>
                     {/* <NavLink onClick={this.toggle} active href="#"> */}
                     <NavLink active href="/login">

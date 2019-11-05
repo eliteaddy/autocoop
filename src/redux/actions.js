@@ -7,3 +7,6 @@ export * from './surveyList/actions';
 export * from './surveyDetail/actions';
 export * from './domain/actions';
 export * from './onboarding/actions';
+export * from './staffs/actions';
+export * from './roles/actions';
+export * from './branch/actions';

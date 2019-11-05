@@ -10,18 +10,16 @@ import {
 	LOGIN_USER,
 	LOGOUT_USER,
 	LOGIN_USER_SUCCESS,
-	REGISTER_USER,
-	REGISTER_USER_SUCCESS,
 } from '../../constants/actionTypes';
 
-export const createDomain = (user, history) => ({
+export const createDomain = (domain, history) => ({
 	type: CREATE_DOMAIN,
-	payload: { user, history },
+	payload: { domain, history },
 });
 
-export const createDomainSuccess = (user) => ({
+export const createDomainSuccess = (domain) => ({
 	type: CREATE_DOMAIN_SUCCESS,
-	payload: user,
+	payload: domain,
 });
 
 export const verifyEmail = (data, history) => ({
@@ -44,14 +42,14 @@ export const resendCodeSuccess = (data) => ({
 	payload: data,
 });
 
-export const findCompany = (data, history) => ({
+export const findCompany = (company, history) => ({
 	type: FIND_COMPANY,
-	payload: { data, history },
+	payload: { company, history },
 });
 
-export const findCompanySuccess = (data) => ({
+export const findCompanySuccess = (company) => ({
 	type: FIND_COMPANY_SUCCESS,
-	payload: data,
+	payload: company,
 });
 
 export const loginUser = (user, history) => ({
@@ -61,15 +59,6 @@ export const loginUser = (user, history) => ({
 
 export const loginUserSuccess = (user) => ({
 	type: LOGIN_USER_SUCCESS,
-	payload: user,
-});
-
-export const registerUser = (user, history) => ({
-	type: REGISTER_USER,
-	payload: { user, history },
-});
-export const registerUserSuccess = (user) => ({
-	type: REGISTER_USER_SUCCESS,
 	payload: user,
 });
 

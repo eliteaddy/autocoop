@@ -22,7 +22,7 @@ const verifyEmailAsync = async (data) =>
 	await axios
 		.post(`${BASE_API_URL}/verifyEmail`, data, {
 			headers: {
-				'Content-Type': 'text/plain',
+				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		})
 		.then((res) => res.data)
@@ -33,7 +33,7 @@ const resendCodeAsync = async (data) =>
 	await axios
 		.post(`${BASE_API_URL}/resendCode`, data, {
 			headers: {
-				'Content-Type': 'text/plain',
+				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		})
 		.then((res) => res.data)
@@ -41,7 +41,7 @@ const resendCodeAsync = async (data) =>
 
 // Connect to find company api
 const findCompanyAsync = async (data) =>
-	await axios.get(`${BASE_API_URL}/find/${data}`).then((res) => res.data).catch((err) => err);
+	await axios.get(`${BASE_API_URL}/findCompany/${data}`).then((res) => res.data).catch((err) => err);
 
 // Connect to login user api
 const loginUserAsync = async (data) =>
@@ -55,7 +55,7 @@ const loginUserAsync = async (data) =>
 		.catch((err) => err);
 
 function* createDomain({ payload }){
-	const { domainName, organisationName, address, mobile, email, password, logo } = payload.user;
+	const { domainName, organisationName, address, mobile, email, password, logo } = payload.domain;
 	const { history } = payload;
 	const data = {
 		domainName,
@@ -71,7 +71,7 @@ function* createDomain({ payload }){
 	try {
 		const registerDomain = yield call(createDomainAsync, query);
 		// console.log(registerDomain);
-		if (registerDomain.status == true) {
+		if (registerDomain.status === true) {
 			// localStorage.setItem('user_id', loginUser.user.uid);
 			yield put(createDomainSuccess(registerDomain));
 			history.push('/');
@@ -88,19 +88,18 @@ function* createDomain({ payload }){
 }
 
 function* verifyEmail({ payload }){
-	const { method, param } = payload.user;
+	const { method, param } = payload.data;
 	const { history } = payload;
 	const data = {
 		method,
 		param,
 	};
+	let query = qs.stringify(data);
 	try {
-		const response = yield call(verifyEmailAsync, data);
-		console.log(response);
-		if (!response.message) {
-			// localStorage.setItem('user_id', loginUser.user.uid);
+		const response = yield call(verifyEmailAsync, query);
+		if (response.status === true) {
 			yield put(verifyEmailSuccess(response));
-			history.push('/');
+			console.log(response);
 		} else {
 			// catch throw
 			console.log('create failed :', response.message);
@@ -112,16 +111,15 @@ function* verifyEmail({ payload }){
 }
 
 function* resendCode({ payload }){
-	const { domain } = payload.user;
+	const { domain } = payload.data;
 	const { history } = payload;
 	const data = domain;
 	try {
 		const response = yield call(resendCodeAsync, data);
-		console.log(response);
-		if (!response.message) {
+		if (response.status === true) {
 			// localStorage.setItem('user_id', loginUser.user.uid);
 			yield put(resendCodeSuccess(response));
-			history.push('/');
+			// history.push('/');
 		} else {
 			// catch throw
 			console.log('create failed :', response.message);
@@ -133,19 +131,15 @@ function* resendCode({ payload }){
 }
 
 function* findCompany({ payload }){
-	const { method, param } = payload.user;
-	const { history } = payload;
+	const { domain } = payload.company;
 	const data = {
-		method,
-		param,
+		domain,
 	};
 	try {
-		const response = yield call(findCompanyAsync, data);
-		console.log(response);
-		if (!response.message) {
-			// localStorage.setItem('user_id', loginUser.user.uid);
+		const response = yield call(findCompanyAsync, data.domain);
+		if (response.status === true) {
+			console.log(response);
 			yield put(findCompanySuccess(response));
-			history.push('/');
 		} else {
 			// catch throw
 			console.log('create failed :', response.message);
@@ -168,8 +162,7 @@ function* loginUser({ payload }){
 	try {
 		const response = yield call(loginUserAsync, query);
 		// console.log(response);
-		if (response.status) {
-			// localStorage.setItem('user_id', loginUser.user.uid);
+		if (response.status === true) {
 			yield put(loginUserSuccess(response.data));
 			history.push('/');
 		} else {

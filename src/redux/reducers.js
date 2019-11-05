@@ -7,11 +7,14 @@ import chatApp from './chat/reducer';
 import surveyListApp from './surveyList/reducer';
 import surveyDetailApp from './surveyDetail/reducer';
 import domainDetail from './domain/reducer';
-import authUser from './onboarding/reducer';
+import onBoarding from './onboarding/reducer';
+import staffs from './staffs/reducer';
+import roles from './roles/reducer';
+import branch from './branch/reducer';
 
 const reducers = combineReducers({
 	menu,
-	authUser,
+	onBoarding,
 	settings,
 	rootReducer,
 	todoApp,
@@ -19,6 +22,9 @@ const reducers = combineReducers({
 	surveyListApp,
 	surveyDetailApp,
 	domainDetail,
+	staffs,
+	roles,
+	branch,
 });
 
 export default reducers;

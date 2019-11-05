@@ -182,8 +182,8 @@ class RegisterLayout extends Component {
 		);
 	}
 }
-const mapStateToProps = ({ authUser }) => {
-	const { user, loading, authed } = authUser;
+const mapStateToProps = ({ onBoarding }) => {
+	const { user, loading, authed } = onBoarding;
 	return { user, loading, authed };
 };
 

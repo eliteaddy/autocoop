@@ -38,9 +38,11 @@ const InitialPath = ({ component: Component, authUser, ...rest }) => (
 );
 
 class App extends Component {
+	// componentDidMount(){
+
+	// }
 	render() {
-		// const { location, match, user, locale } = this.props;
-		const { location, match, authUser } = this.props;
+		const { location, match, onBoarding } = this.props;
 		const { locale } = this.props.settings;
 		const currentAppLocale = AppLocale[locale];
 		// console.log(this.props);
@@ -53,7 +55,7 @@ class App extends Component {
 					<Fragment>
 						<NotificationContainer />
 						<Switch>
-							<InitialPath path={`${match.url}app`} authUser={authUser} component={MainRoute} />
+							<InitialPath path={`${match.url}app`} authUser={onBoarding} component={MainRoute} />
 							<Route path={`/login`} component={login} />
 							<Route path={`/landingPage`} component={landingPage} />
 							<Route path={`/register`} component={register} />
@@ -68,11 +70,5 @@ class App extends Component {
 		);
 	}
 }
-
-// const mapStateToProps = ({ authUser, settings }) => {
-//   const { user } = authUser;
-//   const { locale } = settings;
-//   return { user, locale };
-// };
 
 export default connect((state) => state, {})(App);

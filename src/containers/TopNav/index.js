@@ -186,7 +186,7 @@ class TopNav extends Component {
   render() {
     const { containerClassnames, menuClickCount, locale } = this.props;
     const {messages} = this.props.intl;
-    const {user} = this.props.authUser;
+    const {user} = this.props.onBoarding;
     return (
       <nav className="navbar fixed-top">
         <NavLink
@@ -421,10 +421,10 @@ class TopNav extends Component {
   }
 }
 
-const mapStateToProps = ({ menu, settings, authUser }) => {
+const mapStateToProps = ({ menu, settings, onBoarding }) => {
   const { containerClassnames, menuClickCount } = menu;
   const { locale } = settings;
-  return { containerClassnames, menuClickCount, locale, authUser };
+  return { containerClassnames, menuClickCount, locale, onBoarding };
 };
 export default injectIntl(connect(
   mapStateToProps,
