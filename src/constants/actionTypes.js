@@ -1,3 +1,6 @@
+/** MAIN API URL */
+export const BASE_API_URL = 'https://api.uniquecoop.com';
+
 /* SETTINGS */
 export const CHANGE_LOCALE = 'CHANGE_LOCALE';
 

@@ -20,6 +20,8 @@ import forgotPassword from 'Routes/pages/forgot-password';
 import 'Assets/css/vendor/bootstrap.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
+import { loginUserSuccess } from '../redux/actions';
+
 const InitialPath = ({ component: Component, authUser, ...rest }) => (
 	<Route
 		{...rest}
@@ -39,13 +41,14 @@ const InitialPath = ({ component: Component, authUser, ...rest }) => (
 
 class App extends Component {
 	// componentDidMount(){
-
+	// 	var user = localStorage.getItem('user-item');
+	// 	this.props.loginUserSuccess(user)
 	// }
 	render() {
 		const { location, match, onBoarding } = this.props;
 		const { locale } = this.props.settings;
 		const currentAppLocale = AppLocale[locale];
-		// console.log(this.props);
+		console.log(this.props);
 		if (location.pathname === '/' || location.pathname === '/app' || location.pathname === '/app/') {
 			return <Redirect to={defaultStartPath} />;
 		}
@@ -71,4 +74,15 @@ class App extends Component {
 	}
 }
 
-export default connect((state) => state, {})(App);
+const mapStateToProps = (state) => {
+	var user = localStorage.getItem('user-item');
+	if (user) {
+		loginUserSuccess(JSON.parse(user));
+		state.onBoarding.user = JSON.parse(user);
+		state.onBoarding.authed = true;
+		return state;
+	}
+	return state;
+};
+
+export default connect(mapStateToProps, { loginUserSuccess })(App);

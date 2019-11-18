@@ -16,6 +16,7 @@ import {
 } from '../../constants/actionTypes';
 
 const INIT_STATE = {
+	staffs: [],
 	staff: {},
 	message: null,
 	loading: false,
@@ -42,7 +43,7 @@ export default (state = INIT_STATE, action) => {
 		case GET_STAFF:
 			return { ...state, loading: true };
 		case GET_STAFF_SUCCESS:
-			return { ...state, loading: false, staff: action.payload };
+			return { ...state, loading: false, staffs: action.payload };
 		case UPDATE_STAFF_PROFILE:
 			return { ...state, loading: true };
 		case UPDATE_STAFF_PROFILE_SUCCESS:

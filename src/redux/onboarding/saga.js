@@ -164,6 +164,8 @@ function* loginUser({ payload }){
 		// console.log(response);
 		if (response.status === true) {
 			yield put(loginUserSuccess(response.data));
+			var user = JSON.stringify(response.data);
+			localStorage.setItem('user-item', user);
 			history.push('/');
 		} else {
 			// catch throw

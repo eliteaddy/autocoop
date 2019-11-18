@@ -2,6 +2,7 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import qs from 'qs';
 import {
+	BASE_API_URL,
 	CHANGE_DEFAULT_PASSWORD,
 	REGISTER_STAFF,
 	VERIFY_USER_TOKEN,
@@ -21,7 +22,6 @@ import {
 	changePasswordSuccess,
 } from './actions';
 
-const BASE_API_URL = 'https://api.uniquecoop.com';
 // Connect to register staff api
 const registerStaffAsync = async (data) =>
 	await axios
@@ -129,7 +129,7 @@ function* registerStaff({ payload }){
 		companykey,
 	};
 	let query = qs.stringify(data);
-	// console.log(query);
+	console.log(query);
 	try {
 		const response = yield call(registerStaffAsync, query);
 		// console.log(registerDomain);
@@ -244,7 +244,8 @@ function* getStaff({ payload }){
 		const response = yield call(getStaffAsync, data);
 		if (response.status === true) {
 			yield put(getStaffSuccess(response));
-			history.push('/');
+			console.log(response);
+			// history.push('/');
 		} else {
 			// catch throw
 			alert(response.message);

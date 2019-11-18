@@ -15,8 +15,6 @@ import { Colxx } from "Components/CustomBootstrap";
 import { loginUser } from "Redux/actions";
 
 import { connect } from "react-redux";
-import API from "../../util/API";
-import qs from "qs";
 
 // import { loginUserAction } from "../../redux/auth/actions/authActions";
 
@@ -34,31 +32,12 @@ class LoginLayout extends Component {
   }
   onUserLogin = async () => {
     if (this.state.email !== "" && this.state.password !== "") {
-      // console.log(this.props.loginUser(this.state, this.props.history));
-      // this.props.dispatch(loginUserAction(this.state));
       let payload = {
         email: this.state.email,
         password: this.state.password,
         companykey: this.state.companykey
       };
       this.props.loginUser(payload, this.props.history)
-      
-    //   let resp = await API.post("login", qs.stringify(payload), {
-    //     headers: {
-    //       "content-type": "application/x-www-form-urlencoded"
-    //     }
-    //   });
-    //   if (resp.data.status === false) {
-    //     alert("Invalid username");
-    //   } else if (resp.data.status === true) {
-    //     let userDetail = await resp.data.data;
-    //     // console.log(resp.data.data);
-    //     localStorage.setItem("userDetail", JSON.stringify(userDetail));
-    //     await this.props.history.push("/app");
-    //   }
-    // } else {
-    //   alert("Fields can not be empty");
-    // }
     }
   };
   toggle() {
@@ -72,6 +51,8 @@ class LoginLayout extends Component {
 
   componentDidMount() {
     document.body.classList.add("background");
+    const { authed } = this.props;
+		if (authed) return this.props.history.push('/app/')
   }
   componentWillUnmount() {
     document.body.classList.remove("background");
@@ -190,5 +171,8 @@ class LoginLayout extends Component {
 //   }
 // )(LoginLayout);
 
-const mapStateToProps = response => ( response );
+const mapStateToProps = ({ onBoarding }) => {
+	const { user, loading, authed } = onBoarding;
+	return { user, loading, authed };
+};
 export default connect(mapStateToProps, {loginUser})(LoginLayout);

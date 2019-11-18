@@ -17,36 +17,39 @@ import { CardBody, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup } from 
 import { Colxx } from 'Components/CustomBootstrap';
 
 import { connect } from 'react-redux';
-import { createDomain } from 'Redux/actions';
+import { registerStaff } from 'Redux/actions';
 class RegisterLayout extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			domainName: '',
-			organisationName: '',
-			address: '',
+			firstname: '',
+			lastname: '',
+			middlename: '',
 			mobile: '',
+			gender: '',
+			dob: '',
+			role_id: '',
+			country: '',
+			state: '',
+			picture: null,
+			outlet: [],
+			address: '',
+			send_Sms: false,
 			email: '',
-			password: '',
+			companykey: 'UDvyoAn6hMvCraJBxRIvzuiWUCMqnDyKZ2qtylRe6xykMKbXiCnlY0nJag==',
 		};
 	}
+
 	onUserRegister = () => {
-		const { email, password, mobile, domainName, organisationName, address } = this.state;
-		if (
-			email !== '' &&
-			password !== '' &&
-			domainName !== '' &&
-			organisationName !== '' &&
-			address !== '' &&
-			mobile !== ''
-		) {
-			this.props.createDomain(this.state, this.props.history);
-		} else {
-			alert('Enter all required fields');
-		}
+		this.state.outlet = `[${this.state.outlet.toString()}]`;
+		this.props.registerStaff(this.state, this.props.history);
 	};
 
 	handleChange = ({ target }) => {
+		if (target.name == 'outlet') {
+			var outlet = [ ...this.state.outlet, target.value ];
+			return this.setState({ [target.name]: outlet });
+		}
 		this.setState({ [target.name]: target.value });
 	};
 
@@ -59,7 +62,7 @@ class RegisterLayout extends Component {
 				<Redirect
 					to={{
 						pathname: '/app',
-						state: { from: props.location },
+						state: { from: this.props.location },
 					}}
 				/>
 			);
@@ -108,21 +111,30 @@ class RegisterLayout extends Component {
 											<Label className="form-group has-float-label mb-4">
 												<Input
 													type="text"
-													name="organisationName"
-													value={this.state.organisationName}
+													name="firstname"
+													value={this.state.firstname}
 													onChange={this.handleChange}
 												/>
-												<span>Organization-Name</span>
+												<span>First-Name</span>
 											</Label>
 											<Label className="form-group has-float-label mb-4">
 												<Input
 													type="text"
-													name="domainName"
-													value={this.state.domainName}
+													name="lastname"
+													value={this.state.lastname}
 													onChange={this.handleChange}
 												/>
-												<span>Domain-Name</span>
+												<span>Last-Name</span>
 												{/* <InputGroupAddon addonType="append">@autocoop.com</InputGroupAddon> */}
+											</Label>
+											<Label className="form-group has-float-label mb-4">
+												<Input
+													type="text"
+													name="middlename"
+													value={this.state.middlename}
+													onChange={this.handleChange}
+												/>
+												<span>Middle-Name</span>
 											</Label>
 											<Label className="form-group has-float-label mb-4">
 												<Input
@@ -153,12 +165,88 @@ class RegisterLayout extends Component {
 											</Label>
 											<Label className="form-group has-float-label mb-4">
 												<Input
-													type="password"
-													name="password"
-													value={this.state.password}
+													type="date"
+													name="dob"
+													value={this.state.dob}
 													onChange={this.handleChange}
 												/>
-												<span>Password</span>
+												<span>Date-Of-Birth</span>
+											</Label>
+											<Label className="form-group has-float-label mb-4">
+												<select
+													name="outlet"
+													value={this.state.gender}
+													onChange={this.handleChange}
+													className="form-control"
+												>
+													<option value="male">Male</option>
+													<option value="female">Female</option>
+												</select>
+												<span>Gender</span>
+											</Label>
+
+											<Label className="form-group has-float-label mb-4">
+												<Input
+													type="number"
+													name="role_id"
+													value={this.state.role_id}
+													onChange={this.handleChange}
+												/>
+												<span>Role-ID</span>
+											</Label>
+
+											<Label className="form-group has-float-label mb-4">
+												<Input
+													type="text"
+													name="country"
+													value={this.state.country}
+													onChange={this.handleChange}
+												/>
+												<span>Country</span>
+											</Label>
+
+											<Label className="form-group has-float-label mb-4">
+												<Input
+													type="text"
+													name="state"
+													value={this.state.state}
+													onChange={this.handleChange}
+												/>
+												<span>State</span>
+											</Label>
+
+											<Label className="form-group has-float-label mb-4">
+												<Input
+													type="number"
+													name="send_Sms"
+													value={this.state.send_Sms}
+													onChange={this.handleChange}
+												/>
+												<span>Send-Sms</span>
+											</Label>
+
+											<Label className="form-group has-float-label mb-4">
+												<Input
+													type="file"
+													name="picture"
+													value={this.state.picture}
+													onChange={this.handleChange}
+												/>
+												<span>Picture</span>
+											</Label>
+											<Label className="form-group has-float-label mb-4">
+												<select
+													name="outlet"
+													value={this.state.outlet}
+													onChange={this.handleChange}
+													multiple
+													className="form-control"
+												>
+													<option value="1">One</option>
+													<option value="2">Two</option>
+													<option value="3">Three</option>
+													<option value="4">Four</option>
+												</select>
 											</Label>
 											<div className="d-flex justify-content-between align-items-center">
 												<NavLink to={`/login`}>Already Create an Account ?</NavLink>
@@ -188,5 +276,5 @@ const mapStateToProps = ({ onBoarding }) => {
 };
 
 export default connect(mapStateToProps, {
-	createDomain,
+	registerStaff,
 })(RegisterLayout);

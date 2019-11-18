@@ -62,7 +62,10 @@ export const loginUserSuccess = (user) => ({
 	payload: user,
 });
 
-export const logoutUser = (history) => ({
-	type: LOGOUT_USER,
-	payload: { history },
-});
+export const logoutUser = (history) => {
+	localStorage.removeItem('user-item');
+	return {
+		type: LOGOUT_USER,
+		payload: { history },
+	};
+};

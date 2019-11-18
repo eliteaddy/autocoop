@@ -7,6 +7,7 @@ import {
 	RESEND_CODE_SUCCESS,
 	LOGIN_USER,
 	LOGIN_USER_SUCCESS,
+	LOGOUT_USER,
 	FIND_COMPANY,
 	FIND_COMPANY_SUCCESS,
 } from 'Constants/actionTypes';
@@ -30,6 +31,8 @@ export default (state = INIT_STATE, action) => {
 			return { ...state, loading: true };
 		case LOGIN_USER_SUCCESS:
 			return { ...state, loading: false, authed: true, user: action.payload };
+		case LOGOUT_USER:
+			return { ...state, loading: false, authed: false, user: {} };
 		case VERIFY_EMAIL:
 			return { ...state, loading: true };
 		case VERIFY_EMAIL_SUCCESS:
