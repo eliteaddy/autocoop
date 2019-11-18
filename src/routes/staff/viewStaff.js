@@ -129,14 +129,13 @@ class DefaultDashboard extends Component {
 		};
 	}
 
-	fetchCompanyUserDetails() {
+	async fetchCompanyUserDetails() {
 		if (this.props.authed) {
 			var data = {
 				companykey: 'UDvyoAn6hMvCraJBxRIvzuiWUCMqnDyKZ2qtylRe6xykMKbXiCnlY0nJag==',
 			};
-			this.props.getStaff(data);
-			console.log(this.props);
-			this.setState({ staffs: this.props.staffs.staffs });
+			await this.props.getStaff(data);
+			await this.setState({ staffs: this.props.staffs.staffs.data });
 		}
 	}
 
@@ -154,6 +153,7 @@ class DefaultDashboard extends Component {
 
 	render() {
 		const { messages } = this.props.intl;
+		console.log(this.props.staffs.staffs.data);
 		return (
 			<Fragment>
 				<Row>
@@ -166,20 +166,23 @@ class DefaultDashboard extends Component {
 				<Row>
 					<Colxx xxs="12">
 						<h5 className="mb-4">Staffs List</h5>
-
-						<Sortable className="row icon-cards-row mb-2">
-							{this.state.staffs.map((staff) => (
-								<Colxx xxs="6" sm="4" md="3" className="mb-4">
-									<Card>
-										<CardImg src={staff.profile} alt="" width="100%" />
-										<CardBody className="text-center">
-											<p className="lead text-center">{`${staff.firstname} ${staff.lastname}`}</p>
-											<p className="card-text font-weight-semibold mb-0">{`${staff.email}`}</p>
-										</CardBody>
-									</Card>
-								</Colxx>
-							))}
-						</Sortable>
+						{this.props.staffs.staffs.data ? (
+							<Sortable className="row icon-cards-row mb-2">
+								{this.props.staffs.staffs.data.map((staff) => (
+									<Colxx xxs="6" sm="4" md="3" className="mb-4">
+										<Card>
+											<CardImg src={staff.FullProfile[0].picture} alt="" width="100%" />
+											<CardBody className="text-center">
+												<p className="lead text-center">{`${staff.FullProfile[0]
+													.firstname} ${staff.FullProfile[0].lastname}`}</p>
+												<p className="card-text font-weight-semibold mb-0">{`${staff
+													.FullProfile[0].email}`}</p>
+											</CardBody>
+										</Card>
+									</Colxx>
+								))}
+							</Sortable>
+						) : null}
 					</Colxx>
 				</Row>
 			</Fragment>
