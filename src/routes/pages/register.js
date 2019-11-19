@@ -26,7 +26,7 @@ class RegisterLayout extends Component {
 			lastname: '',
 			middlename: '',
 			mobile: '',
-			gender: '',
+			gender: 'male',
 			dob: '',
 			role_id: '',
 			country: '',
