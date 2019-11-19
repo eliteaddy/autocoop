@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from 'react-router-dom';
 import {
   Row,
   Card,
@@ -111,15 +112,19 @@ class NavigationUi extends Component {
                 <Nav className="justify-content-end nav-pills">
                   {/* <BTNSIGNUP /> */}
                   <NavItem>
-                    <NavLink color="info" href="/register">
+                    <Link to="/register">
+                    <NavLink color="info">
                       Sign Up
                     </NavLink>
+                    </Link>
                   </NavItem>
                   <NavItem>
                     {/* <NavLink onClick={this.toggle} active href="#"> */}
-                    <NavLink active href="/login">
+                    <Link to="/login">
+                    <NavLink active>
                       Login
                     </NavLink>
+                    </Link>
                   </NavItem>
                 </Nav>
               </CardBody>
