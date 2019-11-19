@@ -210,7 +210,7 @@ class StaffRegistration extends Component {
 							</Label>
 							<Label className="form-group has-float-label mb-4">
 								<select
-									name="outlet"
+									name="gender"
 									value={this.state.gender}
 									onChange={this.handleFormChange}
 									className="form-control"

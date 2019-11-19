@@ -174,7 +174,7 @@ class RegisterLayout extends Component {
 											</Label>
 											<Label className="form-group has-float-label mb-4">
 												<select
-													name="outlet"
+													name="gender"
 													value={this.state.gender}
 													onChange={this.handleChange}
 													className="form-control"
